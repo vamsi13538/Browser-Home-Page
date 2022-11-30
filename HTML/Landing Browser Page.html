@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page | Home</title>
+    <style>
+            *{
+                    box-sizing: border-box;
+                    margin: 0;
+                }
+                body{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    height: 100vh;
+                    align-items: center;
+                    text-align: center;
+                }
+                #time{
+                    font-size: 80px;
+                }
+                h1{
+                    font-size: 40px;
+                    margin: 15px 0px;
+                }
+                #main{
+                    font-size: 26px;
+                    margin: 15px 0px;
+                    font-family: Verdana, Geneva, Tahoma, sans-serif;
+                }
+                #focus{
+                    font-size: 26px;
+                }
+                button{
+                    width: 400px;
+                    height: 40px;
+                    font-family: Verdana, Geneva, Tahoma, sans-serif;
+                    font-size: 20px;
+                    border-radius: 10px;
+                    border: 1px solid white;
+                    background-color: black;
+                    color: white;
+                    margin-bottom: 80px;
+                }
+                button:hover{
+                    cursor: pointer;
+                    background-color: white;
+                    color: black;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://google.com"><button type="button">Click Here To Start Browsing</button></a>
+        <h2 id="time">8:37:08</h2>
+        <h1>
+            <span id="greeting">Good Morning</span>
+            <span id="name" contenteditable="true">Vamsi</span>
+        </h1>
+        <h2 id="main">Whats Your Main Focus Today ?</h2>
+        <h2 id="focus" contenteditable="true">Learn JS</h2>
+    </div>
+
+    <script>
+        const time = document.getElementById('time');
+        const greeting = document.getElementById('greeting');
+        let names = document.getElementById('name');
+        const focus = document.getElementById('focus');
+
+        const showAmPM = true;
+
+        function getTime(){
+            let today = new Date();
+            let hour = today.getHours();
+            let minutes= today.getMinutes();
+            let secs = today.getSeconds();
+
+            const amPm = hour>=12 ? 'PM':'AM';
+            hour = hour % 12 || 12;
+
+            time.innerHTML = `${hour}:${addZero(minutes)}:${addZero(secs)} ${showAmPM ? amPm : ''}`;
+
+            setTimeout(getTime, 1000);
+        }
+
+        function addZero(n){
+            return (parseInt(n ,10) < 10 ? `0` : '') + n;
+        }
+
+        function setBgGreet(){
+            let today = new Date();
+            let hour = today.getHours();
+
+            if(hour < 12){
+                document.body.style.backgroundImage = "url('https://wallpaperaccess.com/full/1165344.jpg')";
+                greeting.textContent = 'Good Morning, ';
+            }
+            else if(hour<18){
+                document.body.style.backgroundImage = "url('https://i.ibb.co/3mThcXc/afternoon.jpg')";
+                greeting.textContent = 'Good Afternoon, ';
+            }
+            else{
+                document.body.style.backgroundImage = "url('https://i.ibb.co/924T2Wv/night.jpg')";
+                greeting.textContent = 'Good Evening, ';
+                document.body.style.color = 'white';
+            }
+        }
+
+        function getName(){
+            if(localStorage.getItem('names') === null){
+                names.textContent = '[Enter Name]';
+            }
+            else{
+                names.textContent = localStorage.getItem('names');
+            }
+        }
+
+        function setName(e){
+            if(e.type === 'keypress'){
+                if(e.which == 13 || e.keyCode == 13){
+                    localStorage.setItem('names', e.target.innerText);
+                    names.blur();
+                }
+            }else{
+                localStorage.setItem('names', e.target.innerText);
+            }
+        }
+
+        function getFocus(){
+            if(localStorage.getItem('focus') === null){
+                focus.textContent = '[Enter Focus]';
+            }
+            else{
+                focus.textContent = localStorage.getItem('focus');
+            }
+        }
+
+        function setFocus(e){
+            if(e.type == 'keypress'){
+                if(e.which == 13 || e.keyCode == 13){
+                    localStorage.setItem('focus', e.target.innerText);
+                    focus.blur();
+                }
+            }else{
+                localStorage.setItem('focus', e.target.innerText);
+            }
+        }
+
+        names.addEventListener('keypress', setName);
+        names.addEventListener('blur', setName);
+        focus.addEventListener('keypress', setFocus);
+        focus.addEventListener('blur', setFocus)
+
+        getName();
+        getFocus();
+        getTime();
+        setBgGreet();      
+    </script>
+</body>
+</html>
