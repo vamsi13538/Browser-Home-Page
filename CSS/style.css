@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    text-align: center;
+}
+#time{
+    font-size: 80px;
+}
+h1{
+    font-size: 40px;
+    margin: 15px 0px;
+}
+#main{
+    font-size: 26px;
+    margin: 15px 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#focus{
+    font-size: 26px;
+}
+button{
+    width: 400px;
+    height: 40px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    margin-bottom: 80px;
+}
+button:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
